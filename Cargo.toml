@@ -1,9 +1,9 @@
 [package]
 name = "bevy_register_in_world"
-version = "0.14.1"
+version = "0.14.0"
 edition = "2021"
 description = "Register types into the world during runtime"
-repository = "https://github.com/vil-mo/bevy_entity_system"
+repository = "https://github.com/vil-mo/bevy_register_in_world"
 license = "MIT OR Apache-2.0"
 keywords = ["ecs", "game", "bevy"]
 categories = ["game-development", "data-structures"]
@@ -16,6 +16,6 @@ bevy_app = ["dep:bevy_app", "bevy_consumable_event/bevy_app"]
 bevy_utils = { version = "0.14", default-features = false }
 bevy_ecs = { version = "0.14", default-features = false }
 bevy_app = { version = "0.14", default-features = false, optional = true }
-bevy_consumable_event = { version = "0.4", default-features = false, features = [] }
+bevy_consumable_event = { version = "0.4", default-features = false }
 
 bevy_register_in_world_macros = { version = "0.14", path = "macros"}

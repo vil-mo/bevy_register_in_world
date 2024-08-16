@@ -12,7 +12,7 @@ pub use bevy_register_in_world_macros::ComponentAutoRegister;
 /// 
 /// You can derive this trait and use the same attributes as the regular [`Component`] derive.
 /// In other words, you can still specify storage type and different hooks. 
-/// [`on_add`] hook will be called after the registration.
+/// `on_add` hook will be called after the registration.
 pub trait ComponentAutoRegister: Component + RegisterInWorld {}
 
 /// Should be called during [`on_add`] hook for every component that should be 

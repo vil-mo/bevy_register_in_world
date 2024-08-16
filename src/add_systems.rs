@@ -1,4 +1,4 @@
-//! Adding
+//! Adding systems
 
 use bevy_consumable_event::{ConsumableEventReader, ConsumableEvents};
 use bevy_ecs::{
@@ -8,15 +8,16 @@ use bevy_ecs::{
     world::{DeferredWorld, World},
 };
 
-/// Schedule that is executed after [`Last`] schedule. 
+/// Schedule that is executed after [`Last`](bevy_app::Last) schedule. 
 /// During this schedule *only one system* should be called - [`add_requested_systems`].
-/// It's not recommended to add any other systems to it, that reduces potential parallelism targets.
+/// It's not recommended to add any other systems to it.
 /// This schedule is only used for adding systems to other schedules, so adding systems to it
 /// using [`AddSystems`] event is impossible.
 #[derive(ScheduleLabel, Debug, PartialEq, Eq, Hash, Clone)]
 pub struct AddingSystems;
 
 /// Adds systems to the schedule during [`AddingSystems`] schedule.
+/// Should use [`ConsumableEventWriter`](bevy_consumable_event::ConsumableEventWriter) to write events.
 #[derive(Event)]
 pub struct AddSystems(InternedScheduleLabel, SystemConfigs);
 

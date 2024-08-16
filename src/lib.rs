@@ -42,7 +42,7 @@
 //!
 //! #[derive(ComponentAutoRegister)]
 //! struct GenericComponent<A, B>(A, B)
-//!     where A: Send + Sync + 'static, B: Send + Sync + 'static;;
+//!     where A: Send + Sync + 'static, B: Send + Sync + 'static;
 //!
 //! impl<A, B> RegisterInWorld for GenericComponent<A, B> 
 //!     where A: Send + Sync + 'static, B: Send + Sync + 'static
@@ -91,14 +91,21 @@ pub mod prelude {
 }
 
 
-/// Re
+/// Types that can be registered to the world.
 pub trait RegisterInWorld: 'static {
+    /// Register type to the world.
+    /// 
+    /// Since this crate is primarily useful for 
+    /// [automatic component registration](bevy_register_in_world::component::ComponentAutoRegister),
+    /// which registers components during `on_add` hook, it was decided to use 
+    /// [`DeferredWorld`] directly as an argument. You can still use [`DeferredWorld::commands`].
+    /// Calling [`World::register`] will immediately flush commands after call to `register`.
     fn register(world: DeferredWorld);
 }
 
 type TypeIdSet = HashSet<TypeId, NoOpHash>;
 
-/// Stores a `HashSet` of types that was registered into the world using [`RegisterInWorld`] trait.
+/// Stores a `HashSet` of types that were registered into the world using [`RegisterInWorld`] trait.
 #[derive(Resource, Default)]
 pub struct RegisteredTypes {
     types: TypeIdSet,
@@ -123,6 +130,7 @@ impl RegisteredTypes {
 /// Trait that is implemented for world and app types for convenience of registering.
 pub trait RegisterExtension {
     /// Register the specified type into the world using [`RegisterInWorld`].
+    /// Won't register again if type was already registered to the world.
     fn register<T: RegisterInWorld>(&mut self);
 }
 

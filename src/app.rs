@@ -1,3 +1,5 @@
+//! Logic for app
+
 use bevy_app::{App, Last, MainScheduleOrder, Plugin, SubApp};
 use bevy_consumable_event::ConsumableEventApp;
 
